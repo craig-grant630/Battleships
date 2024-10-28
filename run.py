@@ -1,3 +1,11 @@
-# Your code goes here.
-# You can delete these comments, but do not change the name of this file
-# Write your code to expect a terminal of 80 characters wide and 24 rows high
+BOARD_SIZE = 10
+
+def create_board():
+    # A function to create a list of 
+    #list with a borard size of 10
+    return [["O"]*10 for x in range(BOARD_SIZE)]
+
+def play_game():
+    computer_board = create_board()
+    user_board = create_board()
+
