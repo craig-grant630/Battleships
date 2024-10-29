@@ -26,34 +26,45 @@ def get_computer_ship(board):
     # check to see if it will fit on the board
     # place ship on the board
 
-    print("Computer is placing ship \n")
+    print("Computer is placing ships \n")
     for ship_size in SHIP_SIZES:
         placed = False
         while not placed:
             comp_row = random.randint(0, BOARD_SIZE - 1)
             comp_col = random.randint(0, BOARD_SIZE - 1)
             comp_dir = random.choice(DIRECTION)
-            validate_ship_placement(comp_dir, comp_row, comp_col, ship_size)
-            place(comp_row, comp_col, comp_dir, ship_size, board)
-            placed = True
+            if validate_ship(comp_dir, comp_row, comp_col, ship_size, board):
+                place(comp_row, comp_col, comp_dir, ship_size, board)
+                placed = True
 
 
-# More Validations will be needed for overlapping boats
-def validate_ship_placement(direction, row, column, ship_size):
+def validate_ship(direction, row, column, ship_size, board):
     # Make sure the ship is placed in the boundaries of the board
     if direction == "N":
         if row - ship_size <= -1:
             return False
+        for y in range(ship_size):
+            if board[row - y][column] == "S":
+                return False
     elif direction == "S":
         if row + ship_size > BOARD_SIZE:
             return False
+        for y in range(ship_size):
+            if board[row + y][column] == "S":
+                return False
     elif direction == "E":
         if column + ship_size > BOARD_SIZE:
             return False
-    elif direction == "S":
+        for x in range(ship_size):
+            if board[row][column + x] == "S":
+                return False
+    elif direction == "W":
         if column - ship_size <= -1:
             return False
-
+        for x in range(ship_size):
+            if board[row][column - x] == "S":
+                return False
+    return True
 
 def place(row, column, direction, ship_size, board):
     # Place ships on the board according to ship size and direction
@@ -74,6 +85,7 @@ def place(row, column, direction, ship_size, board):
 def play_game():
     computer_board = create_board()
     user_board = create_board()
+    print("Initial Boards")
     print_display_boards(user_board, computer_board)
     get_computer_ship(computer_board)
     print_display_boards(user_board, computer_board)
