@@ -37,6 +37,26 @@ def get_computer_ship(board):
                 place(comp_row, comp_col, comp_dir, ship_size, board)
                 placed = True
 
+def get_user_ship(user_board, computer_board):
+    # intake the display boards and update the users board when 
+    for ship_size in SHIP_SIZES:
+        placed = False
+        try:
+            while not placed:
+                user_row = int(input("row: "))
+                user_column = int(input("column: "))
+                user_dir = input("direction: ").upper()
+                if user_dir in DIRECTION:
+                    if validate_ship(user_dir, user_row, user_column, ship_size, user_board):
+                        place(user_row, user_column, user_dir, ship_size, user_board)
+                        print_display_boards(user_board, computer_board)
+                        placed = True
+                    else:
+                        print("Not in Bounds")
+                else:
+                    print("Invalid Direction")
+        except:
+            print("Invalid Input")
 
 def validate_ship(direction, row, column, ship_size, board):
     # Make sure the ship is placed in the boundaries of the board
@@ -89,6 +109,7 @@ def play_game():
     print_display_boards(user_board, computer_board)
     get_computer_ship(computer_board)
     print_display_boards(user_board, computer_board)
+    get_user_ship(user_board, computer_board)
 
 
 play_game()
