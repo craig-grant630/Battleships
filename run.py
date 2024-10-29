@@ -2,6 +2,7 @@ import random
 
 BOARD_SIZE = 10
 DIRECTION = ["N","S","E","W"]
+SHIP_SIZES = [3,2,2]
 
 def create_board():
     #create a list of 
@@ -17,21 +18,26 @@ def print_display_boards(user_board, computer_board):
         print(f"{user_board_row}    {computer_board_row}")
     print("")
 
-#loop through different ship sizes
-#loop until all ships are placed correclty
-#Going to need to check see if this can be used - another function required
-#If checks are good then placed = True 
 
 def get_computer_ship(board):
-    print("Computer is placing ship \n")
-    ship_size = 3
-    computer_row_place = random.randint(0,BOARD_SIZE- 1)
-    computer_col_place = random.randint(0,BOARD_SIZE -1)
-    computer_direction = random.choice(DIRECTION)
-    validate_ship_placement(computer_direction, computer_row_place,computer_col_place,ship_size)
-    place(computer_row_place, computer_col_place, computer_direction, ship_size, board)
+    #Get a randomly placed staring point and direction
+    #check to see if it will fit on the board
+    #place ship on the board
 
+    print("Computer is placing ship \n")
+    for ship_size in SHIP_SIZES:
+        placed = False
+        while not placed:
+            computer_row_place = random.randint(0,BOARD_SIZE- 1)
+            computer_col_place = random.randint(0,BOARD_SIZE -1)
+            computer_direction = random.choice(DIRECTION)
+            validate_ship_placement(computer_direction, computer_row_place,computer_col_place,ship_size)
+            place(computer_row_place, computer_col_place, computer_direction, ship_size, board)
+            placed = True
+
+# More Validations will be needed for overlapping boats
 def validate_ship_placement(direction, row, column, ship_size):
+    # Make sure the ship is placed in the boundaries of the board
     if direction == "N":
         if row - ship_size <= -1:
             return False
@@ -46,6 +52,7 @@ def validate_ship_placement(direction, row, column, ship_size):
             return False
 
 def place(row, column, direction, ship_size, board):
+    #Place ships on the board according to ship size and direction
     if direction == "N":
         for i in range(ship_size):
             board[row - i][column] = "S"
