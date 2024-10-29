@@ -1,7 +1,6 @@
 import random
 
 BOARD_SIZE = 10
-SHIP_SIZES = [5,4,3,3,2]
 DIRECTION = ["N","S","E","W"]
 
 def create_board():
@@ -18,7 +17,6 @@ def print_display_boards(user_board, computer_board):
         print(f"{user_board_row}    {computer_board_row}")
     print("")
 
-
 #loop through different ship sizes
 #loop until all ships are placed correclty
 #Going to need to check see if this can be used - another function required
@@ -30,7 +28,22 @@ def get_computer_ship(board):
     computer_row_place = random.randint(0,BOARD_SIZE- 1)
     computer_col_place = random.randint(0,BOARD_SIZE -1)
     computer_direction = random.choice(DIRECTION)
+    validate_ship_placement(computer_direction, computer_row_place,computer_col_place,ship_size)
     place(computer_row_place, computer_col_place, computer_direction, ship_size, board)
+
+def validate_ship_placement(direction, row, column, ship_size):
+    if direction == "N":
+        if row - ship_size <= -1:
+            return False
+    elif direction == "S":
+        if row + ship_size > BOARD_SIZE:
+            return False
+    elif direction == "E":
+        if column + ship_size > BOARD_SIZE:
+            return False
+    elif direction == "S":
+        if column - ship_size <= -1:
+            return False
 
 def place(row, column, direction, ship_size, board):
     if direction == "N":
@@ -53,5 +66,4 @@ def play_game():
     get_computer_ship(computer_board)
     print_display_boards(user_board, computer_board)
     
-
 play_game()
