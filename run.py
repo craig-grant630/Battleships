@@ -13,11 +13,18 @@ def create_board():
 
 def print_display_boards(user_board, computer_board):
     # Print the boards the user will see and update
+    #Titles for boards
+    print(" "*9 + "Users Board" + " "*20 + "Computers Board")
+    # Add speration
+    print("-"*67)
+    #Add column labels
+    column_label = "  " +("  ").join(map(str, range(BOARD_SIZE)))
+    print(column_label +" "*6 + column_label)
     # Iterate through each row and join the list with spaces
     for i in range(BOARD_SIZE):
-        user_board_row = ("  ").join(user_board[i])
-        computer_board_row = ("  ").join(computer_board[i])
-        print(f"{user_board_row}    {computer_board_row}")
+        user_board_row = str(i) + " " + ("  ").join(user_board[i])
+        computer_board_row = str(i) + " " + ("  ").join(computer_board[i])
+        print(f"{user_board_row}  ||  {computer_board_row}")
     print("")
 
 
@@ -26,7 +33,7 @@ def get_computer_ship(board):
     # check to see if it will fit on the board
     # place ship on the board
 
-    print("Computer is placing ships \n")
+    print("Computer is placing ships... \n")
     for ship_size in SHIP_SIZES:
         placed = False
         while not placed:
@@ -37,22 +44,23 @@ def get_computer_ship(board):
                 place(comp_row, comp_col, comp_dir, ship_size, board)
                 placed = True
 
-def get_user_ship(user_board, computer_board):
+def get_user_ship(user_board, board):
     # intake the display boards and update the users board when 
+    print("Time to place your ships!")
     for ship_size in SHIP_SIZES:
         placed = False
         try:
             while not placed:
-                user_row = int(input("row: "))
-                user_column = int(input("column: "))
-                user_dir = input("direction: ").upper()
+                user_row = int(input(f"Enter row for ship length {ship_size}: "))
+                user_column = int(input(f"Enter column for ship length {ship_size}: "))
+                user_dir = input("Enter your direction (N,S,E,W): \n").upper()
                 if user_dir in DIRECTION:
                     if validate_ship(user_dir, user_row, user_column, ship_size, user_board):
                         place(user_row, user_column, user_dir, ship_size, user_board)
-                        print_display_boards(user_board, computer_board)
+                        print_display_boards(user_board, board)
                         placed = True
                     else:
-                        print("Not in Bounds")
+                        print("Placement Invalid")
                 else:
                     print("Invalid Direction")
         except:
@@ -87,7 +95,7 @@ def validate_ship(direction, row, column, ship_size, board):
     return True
 
 def place(row, column, direction, ship_size, board):
-    # Place ships on the board according to ship size and direction
+    # Place ships on the board according to ship size and direction and starting point
     if direction == "N":
         for i in range(ship_size):
             board[row - i][column] = "S"
@@ -105,11 +113,12 @@ def place(row, column, direction, ship_size, board):
 def play_game():
     computer_board = create_board()
     user_board = create_board()
-    print("Initial Boards")
-    print_display_boards(user_board, computer_board)
+    computer_display_board = create_board()
+    print("Initial Boards \n")
+    print_display_boards(user_board, computer_display_board)
     get_computer_ship(computer_board)
-    print_display_boards(user_board, computer_board)
-    get_user_ship(user_board, computer_board)
+    get_user_ship(user_board, computer_display_board)
+    
 
 
 play_game()
