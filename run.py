@@ -124,12 +124,12 @@ def user_guess(computer_board, computer_display_board, user_board):
             if computer_display_board[u_guess_row][u_guess_col] != "O":
                 print("You have already guessed this, try again")
             elif computer_board[u_guess_row][u_guess_col] == "S":
-                print("Hit")
+                print("You Hit")
                 computer_display_board[u_guess_row][u_guess_col] = "X"
                 print_display_boards(user_board, computer_display_board)
                 guessing = False
             elif computer_board[u_guess_row][u_guess_col] == "O":
-                print("Miss")
+                print("You Missed")
                 computer_display_board[u_guess_row][u_guess_col] = "-"
                 print_display_boards(user_board, computer_display_board)
                 guessing = False
@@ -137,6 +137,27 @@ def user_guess(computer_board, computer_display_board, user_board):
             print("Invalid Input")
 
 
+def computer_guess(computer_display_board, user_board):
+    print("Computers Turn")
+    guessing = True
+    while guessing:
+        comp_guess_row = random.randint(0, BOARD_SIZE)
+        comp_guess_col = random.randint(0, BOARD_SIZE)
+        if user_board[comp_guess_row][comp_guess_col] == "S":
+            print("Computer Hit")
+            user_board[comp_guess_row][comp_guess_col] = "X"
+            print_display_boards(user_board, computer_display_board)
+            guessing = False
+        elif user_board[comp_guess_row][comp_guess_row] == "O":
+            print("Computer Missed")
+            user_board[comp_guess_row][comp_guess_col] = "-"
+            print_display_boards(user_board, computer_display_board)
+            guessing = False
+        else:
+            guessing = True
+            
+
+    
 def play_game():
     computer_board = create_board()
     user_board = create_board()
@@ -144,9 +165,9 @@ def play_game():
     print("Initial Boards \n")
     print_display_boards(user_board, computer_display_board)
     get_computer_ship(computer_board)
-    print(computer_board)
     get_user_ship(user_board, computer_display_board)
     user_guess(computer_board, computer_display_board, user_board)
+    computer_guess(computer_display_board, user_board)
     
 
 play_game()
