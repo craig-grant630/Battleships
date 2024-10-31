@@ -2,7 +2,7 @@ import random
 
 BOARD_SIZE = 10
 DIRECTION = ["N", "S", "E", "W"]
-SHIP_SIZES = [3, 2, 2]
+SHIP_SIZES = [2]
 
 
 def create_board():
@@ -18,7 +18,7 @@ def print_display_boards(user_board, computer_board):
     # Add speration
     print("-"*67)
     #Add column labels
-    column_label = "  " +("  ").join(map(str, range(BOARD_SIZE)))
+    column_label = "  " + ("  ").join(map(str, range(BOARD_SIZE)))
     print(column_label +" "*6 + column_label)
     # Iterate through each row and join the list with spaces
     for i in range(BOARD_SIZE):
@@ -26,7 +26,6 @@ def print_display_boards(user_board, computer_board):
         computer_board_row = str(i) + " " + ("  ").join(computer_board[i])
         print(f"{user_board_row}  ||  {computer_board_row}")
     print("")
-
 
 def get_computer_ship(board):
     # Get a randomly placed staring point and direction
@@ -109,6 +108,25 @@ def place(row, column, direction, ship_size, board):
         for i in range(ship_size):
             board[row][column - i] = "S"
 
+def user_guess(computer_board, computer_display_board, user_board):
+    print("Time to Start Firing")
+    print("Start guessing!")
+    try:
+        u_guess_row = int(input("Guess a row: "))
+        u_guess_col = int(input("Guess a column: "))
+        if computer_display_board[u_guess_row][u_guess_col] != "O":
+            print("You have already guessed this, try again")
+        elif computer_board[u_guess_row][u_guess_col] == "S":
+            print("Hit")
+            computer_display_board[u_guess_row][u_guess_col] = "X"
+            print_display_boards(user_board, computer_display_board)
+        elif computer_board[u_guess_row][u_guess_col] == "O":
+            print("Miss")
+            computer_display_board[u_guess_row][u_guess_col] == "-"
+            print_display_boards(user_board, computer_display_board)
+    except:
+        print("Invalid Input")
+
 
 def play_game():
     computer_board = create_board()
@@ -117,7 +135,9 @@ def play_game():
     print("Initial Boards \n")
     print_display_boards(user_board, computer_display_board)
     get_computer_ship(computer_board)
+    print(computer_board)
     get_user_ship(user_board, computer_display_board)
+    user_guess(computer_board, computer_display_board, user_board)
     
 
 
