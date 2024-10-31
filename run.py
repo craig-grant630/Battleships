@@ -27,6 +27,7 @@ def print_display_boards(user_board, computer_board):
         print(f"{user_board_row}  ||  {computer_board_row}")
     print("")
 
+
 def get_computer_ship(board):
     # Get a randomly placed staring point and direction
     # check to see if it will fit on the board
@@ -42,6 +43,7 @@ def get_computer_ship(board):
             if validate_ship(comp_dir, comp_row, comp_col, ship_size, board):
                 place(comp_row, comp_col, comp_dir, ship_size, board)
                 placed = True
+
 
 def get_user_ship(user_board, board):
     # intake the display boards and update the users board when 
@@ -64,6 +66,7 @@ def get_user_ship(user_board, board):
                     print("Invalid Direction")
         except:
             print("Invalid Input")
+
 
 def validate_ship(direction, row, column, ship_size, board):
     # Make sure the ship is placed in the boundaries of the board
@@ -93,6 +96,7 @@ def validate_ship(direction, row, column, ship_size, board):
                 return False
     return True
 
+
 def place(row, column, direction, ship_size, board):
     # Place ships on the board according to ship size and direction and starting point
     if direction == "N":
@@ -108,24 +112,29 @@ def place(row, column, direction, ship_size, board):
         for i in range(ship_size):
             board[row][column - i] = "S"
 
+
 def user_guess(computer_board, computer_display_board, user_board):
     print("Time to Start Firing")
     print("Start guessing!")
-    try:
-        u_guess_row = int(input("Guess a row: "))
-        u_guess_col = int(input("Guess a column: "))
-        if computer_display_board[u_guess_row][u_guess_col] != "O":
-            print("You have already guessed this, try again")
-        elif computer_board[u_guess_row][u_guess_col] == "S":
-            print("Hit")
-            computer_display_board[u_guess_row][u_guess_col] = "X"
-            print_display_boards(user_board, computer_display_board)
-        elif computer_board[u_guess_row][u_guess_col] == "O":
-            print("Miss")
-            computer_display_board[u_guess_row][u_guess_col] == "-"
-            print_display_boards(user_board, computer_display_board)
-    except:
-        print("Invalid Input")
+    guessing = True
+    while guessing:
+        try:
+            u_guess_row = int(input("Guess a row: "))
+            u_guess_col = int(input("Guess a column: "))
+            if computer_display_board[u_guess_row][u_guess_col] != "O":
+                print("You have already guessed this, try again")
+            elif computer_board[u_guess_row][u_guess_col] == "S":
+                print("Hit")
+                computer_display_board[u_guess_row][u_guess_col] = "X"
+                print_display_boards(user_board, computer_display_board)
+                guessing = False
+            elif computer_board[u_guess_row][u_guess_col] == "O":
+                print("Miss")
+                computer_display_board[u_guess_row][u_guess_col] = "-"
+                print_display_boards(user_board, computer_display_board)
+                guessing = False
+        except:
+            print("Invalid Input")
 
 
 def play_game():
@@ -139,6 +148,5 @@ def play_game():
     get_user_ship(user_board, computer_display_board)
     user_guess(computer_board, computer_display_board, user_board)
     
-
 
 play_game()
