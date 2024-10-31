@@ -70,7 +70,9 @@ def get_user_ship(user_board, board):
 
 def validate_ship(direction, row, column, ship_size, board):
     # Make sure the ship is placed in the boundaries of the board
-    if direction == "N":
+    if row < 0 or row > 9 or column < 0 or column > 9:
+        return False
+    elif direction == "N":
         if row - ship_size <= -1:
             return False
         for y in range(ship_size):
