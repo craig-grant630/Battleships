@@ -13,13 +13,13 @@ def create_board():
 
 def print_display_boards(user_board, computer_board):
     # Print the boards the user will see and update
-    #Titles for boards
+    # Titles for boards
     print(" "*9 + "Users Board" + " "*20 + "Computers Board")
     # Add speration
     print("-"*67)
-    #Add column labels
+    # Add column labels
     column_label = "  " + ("  ").join(map(str, range(BOARD_SIZE)))
-    print(column_label +" "*6 + column_label)
+    print(column_label + " "*6 + column_label)
     # Iterate through each row and join the list with spaces
     for i in range(BOARD_SIZE):
         user_board_row = str(i) + " " + ("  ").join(user_board[i])
@@ -46,25 +46,31 @@ def get_computer_ship(board):
 
 
 def get_user_ship(user_board, board):
-    # intake the display boards and update the users board when 
+    # intake the display boards and update the users board when
     print("Time to place your ships!")
     for ship_size in SHIP_SIZES:
         placed = False
         try:
             while not placed:
-                user_row = int(input(f"Enter row for ship length {ship_size}: "))
-                user_column = int(input(f"Enter column for ship length {ship_size}: "))
+                user_row = int(input(
+                    f"Enter row for ship length {ship_size}: "))
+                user_column = int(input(
+                    f"Enter column for ship length {ship_size}: "))
                 user_dir = input("Enter your direction (N,S,E,W): \n").upper()
                 if user_dir in DIRECTION:
-                    if validate_ship(user_dir, user_row, user_column, ship_size, user_board):
-                        place(user_row, user_column, user_dir, ship_size, user_board)
+                    if validate_ship(
+                                    user_dir, user_row, user_column,
+                                    ship_size, user_board):
+                        place(
+                            user_row, user_column,
+                            user_dir, ship_size, user_board)
                         print_display_boards(user_board, board)
                         placed = True
                     else:
                         print("Placement Invalid")
                 else:
                     print("Invalid Direction")
-        except:
+        except ValueError:
             print("Invalid Input")
 
 
@@ -100,7 +106,8 @@ def validate_ship(direction, row, column, ship_size, board):
 
 
 def place(row, column, direction, ship_size, board):
-    # Place ships on the board according to ship size and direction and starting point
+    # Place ships on the board according to ship
+    # size and direction and starting point
     if direction == "N":
         for i in range(ship_size):
             board[row - i][column] = "S"
@@ -128,14 +135,12 @@ def user_guess(computer_board, computer_display_board, user_board):
             elif computer_board[u_guess_row][u_guess_col] == "S":
                 print("You Hit")
                 computer_display_board[u_guess_row][u_guess_col] = "X"
-                print_display_boards(user_board, computer_display_board)
                 guessing = False
             elif computer_board[u_guess_row][u_guess_col] == "O":
                 print("You Missed")
                 computer_display_board[u_guess_row][u_guess_col] = "-"
-                print_display_boards(user_board, computer_display_board)
                 guessing = False
-        except:
+        except ValueError:
             print("Invalid Input")
 
 
@@ -157,9 +162,8 @@ def computer_guess(computer_display_board, user_board):
             guessing = False
         else:
             guessing = True
-            
 
-    
+
 def play_game():
     computer_board = create_board()
     user_board = create_board()
@@ -170,6 +174,6 @@ def play_game():
     get_user_ship(user_board, computer_display_board)
     user_guess(computer_board, computer_display_board, user_board)
     computer_guess(computer_display_board, user_board)
-    
+
 
 play_game()
