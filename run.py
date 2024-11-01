@@ -71,8 +71,8 @@ def get_user_ship(user_board, board):
     print("Time to place your ships! \n")
     for ship_size in SHIP_SIZES:
         placed = False
-        try:
-            while not placed:
+        while not placed:
+            try:
                 user_row = int(input(
                     f"Enter row for ship length {ship_size}: \n"))
                 user_column = int(input(
@@ -92,8 +92,9 @@ def get_user_ship(user_board, board):
                         print("Placement Invalid \n")
                 else:
                     print("Invalid Direction \n")
-        except ValueError:
-            print("Invalid Input! \n")
+            except ValueError:
+                print("Invalid Input! \n")
+                placed = False
 
 
 def validate_ship(direction, row, column, ship_size, board):
