@@ -2,7 +2,7 @@ import random
 
 BOARD_SIZE = 10
 DIRECTION = ["N", "S", "E", "W"]
-SHIP_SIZES = [2]
+SHIP_SIZES = [2,2,3,4,5]
 
 
 def create_board():
@@ -47,7 +47,7 @@ def get_computer_ship(board):
 
 def get_user_ship(user_board, board):
     # intake the display boards and update the users board when
-    print("Time to place your ships!")
+    print("Time to place your ships! \n")
     for ship_size in SHIP_SIZES:
         placed = False
         try:
@@ -56,7 +56,8 @@ def get_user_ship(user_board, board):
                     f"Enter row for ship length {ship_size}: "))
                 user_column = int(input(
                     f"Enter column for ship length {ship_size}: "))
-                user_dir = input("Enter your direction (N,S,E,W): \n").upper()
+                user_dir = input("Enter your direction (N,S,E,W): ").upper()
+                print("")
                 if user_dir in DIRECTION:
                     if validate_ship(
                                     user_dir, user_row, user_column,
@@ -67,11 +68,11 @@ def get_user_ship(user_board, board):
                         print_display_boards(user_board, board)
                         placed = True
                     else:
-                        print("Placement Invalid")
+                        print("Placement Invalid \n")
                 else:
-                    print("Invalid Direction")
+                    print("Invalid Direction \n")
         except ValueError:
-            print("Invalid Input")
+            print("Invalid Input! \n")
 
 
 def validate_ship(direction, row, column, ship_size, board):
@@ -85,13 +86,13 @@ def validate_ship(direction, row, column, ship_size, board):
             if board[row - y][column] == "S":
                 return False
     elif direction == "S":
-        if row + ship_size > BOARD_SIZE - 1:
+        if row + ship_size > BOARD_SIZE:
             return False
         for y in range(ship_size):
             if board[row + y][column] == "S":
                 return False
     elif direction == "E":
-        if column + ship_size > BOARD_SIZE - 1:
+        if column + ship_size > BOARD_SIZE:
             return False
         for x in range(ship_size):
             if board[row][column + x] == "S":
@@ -184,15 +185,18 @@ def play_game():
     get_user_ship(user_board, computer_display_board)
     print("Time to Start Firing")
     print("Start guessing! \n")
+    turn = 1
     while True:
+        print(f"Turn: {turn}")
         user_guess(computer_board, computer_display_board, user_board)
         check_user_win = game_check(computer_display_board)
-        if check_user_win == 2:
+        if check_user_win == sum(SHIP_SIZES):
             print("Congratulations you have sunk all the ships, You Win")
             break
         computer_guess(computer_display_board, user_board)
         check_computer_wins = game_check(user_board)
-        if check_computer_wins == 2:
+        if check_computer_wins == sum(SHIP_SIZES):
             print("The computer has sunk all you ships, computer wins")
             break
+        turn = turn + 1
 play_game()
