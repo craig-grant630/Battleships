@@ -2,7 +2,7 @@ import random
 
 BOARD_SIZE = 10
 DIRECTION = ["N", "S", "E", "W"]
-SHIP_SIZES = [2,2,3,4,5]
+SHIP_SIZES = [2, 2, 3, 4, 5]
 
 
 def create_board():
@@ -53,10 +53,10 @@ def get_user_ship(user_board, board):
         try:
             while not placed:
                 user_row = int(input(
-                    f"Enter row for ship length {ship_size}: "))
+                    f"Enter row for ship length {ship_size}: \n"))
                 user_column = int(input(
                     f"Enter column for ship length {ship_size}: "))
-                user_dir = input("Enter your direction (N,S,E,W): ").upper()
+                user_dir = input("Enter your direction (N,S,E,W): \n").upper()
                 print("")
                 if user_dir in DIRECTION:
                     if validate_ship(
@@ -127,9 +127,10 @@ def user_guess(computer_board, computer_display_board, user_board):
     guessing = True
     while guessing:
         try:
-            u_guess_row = int(input("Guess a row: "))
-            u_guess_col = int(input("Guess a column: "))
-            if u_guess_col < 0 or u_guess_col > 9 or u_guess_row < 0 or u_guess_row > 9:
+            u_guess_row = int(input("Guess a row: \n"))
+            u_guess_col = int(input("Guess a column: \n"))
+            if (u_guess_col < 0 or u_guess_col > 9 or u_guess_row or
+                    u_guess_row > 9):
                 print("Invalid guess \n")
             elif computer_display_board[u_guess_row][u_guess_col] != "O":
                 print("You have already guessed this, try again")
@@ -173,6 +174,7 @@ def game_check(board):
                 count = count + 1
     return count
 
+
 def play_game():
     computer_board = create_board()
     user_board = create_board()
@@ -181,7 +183,6 @@ def play_game():
     print("Initial Boards \n")
     print_display_boards(user_board, computer_display_board)
     get_computer_ship(computer_board)
-    print(computer_board)
     get_user_ship(user_board, computer_display_board)
     print("Time to Start Firing")
     print("Start guessing! \n")
@@ -199,4 +200,6 @@ def play_game():
             print("The computer has sunk all you ships, computer wins")
             break
         turn = turn + 1
+
+
 play_game()
