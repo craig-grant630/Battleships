@@ -124,6 +124,7 @@ def place(row, column, direction, ship_size, board):
 
 
 def user_guess(computer_board, computer_display_board, user_board):
+    # this will take in users input to update the the boards
     guessing = True
     while guessing:
         try:
@@ -147,6 +148,8 @@ def user_guess(computer_board, computer_display_board, user_board):
 
 
 def computer_guess(computer_display_board, user_board):
+    # this will create a guess with random numbers
+    # It will update the board with either a hit or a miss
     print("Computers Turn")
     guessing = True
     while guessing:
@@ -167,6 +170,9 @@ def computer_guess(computer_display_board, user_board):
 
 
 def game_check(board):
+    # This will check if the game ends
+    # It will see how many hits there have been on the board
+    # This will be retured to the main loop
     count = 0
     for i in range(BOARD_SIZE):
         for j in range(BOARD_SIZE):
@@ -176,6 +182,7 @@ def game_check(board):
 
 
 def play_game():
+    # This is the main loop for the game
     computer_board = create_board()
     user_board = create_board()
     computer_display_board = create_board()
