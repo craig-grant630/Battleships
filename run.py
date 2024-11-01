@@ -152,7 +152,7 @@ def user_guess(computer_board, computer_display_board, user_board):
         try:
             u_guess_row = int(input("Guess a row: \n"))
             u_guess_col = int(input("Guess a column: \n"))
-            if (u_guess_col < 0 or u_guess_col > 9 or u_guess_row or
+            if (u_guess_col < 0 or u_guess_col > 9 or u_guess_row < 0 or
                     u_guess_row > 9):
                 print("Invalid guess \n")
             elif computer_display_board[u_guess_row][u_guess_col] != "O":
