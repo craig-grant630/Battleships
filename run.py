@@ -123,27 +123,25 @@ def place(row, column, direction, ship_size, board):
 
 
 def user_guess(computer_board, computer_display_board, user_board):
-    print("Time to Start Firing")
-    print("Start guessing!")
     guessing = True
     while guessing:
         try:
             u_guess_row = int(input("Guess a row: "))
             u_guess_col = int(input("Guess a column: "))
             if u_guess_col < 0 or u_guess_col > 9 or u_guess_row < 0 or u_guess_row > 9:
-                print("Invalid guess")
+                print("Invalid guess \n")
             elif computer_display_board[u_guess_row][u_guess_col] != "O":
                 print("You have already guessed this, try again")
             elif computer_board[u_guess_row][u_guess_col] == "S":
-                print("You Hit")
+                print("You Hit \n")
                 computer_display_board[u_guess_row][u_guess_col] = "X"
                 guessing = False
             elif computer_board[u_guess_row][u_guess_col] == "O":
-                print("You Missed")
+                print("You Missed \n")
                 computer_display_board[u_guess_row][u_guess_col] = "-"
                 guessing = False
         except ValueError:
-            print("Invalid Input")
+            print("Invalid Input \n")
 
 
 def computer_guess(computer_display_board, user_board):
@@ -153,12 +151,12 @@ def computer_guess(computer_display_board, user_board):
         comp_guess_row = random.randint(0, BOARD_SIZE - 1)
         comp_guess_col = random.randint(0, BOARD_SIZE - 1)
         if user_board[comp_guess_row][comp_guess_col] == "S":
-            print("Computer Hit")
+            print("Computer Hit \n")
             user_board[comp_guess_row][comp_guess_col] = "X"
             print_display_boards(user_board, computer_display_board)
             guessing = False
-        elif user_board[comp_guess_row][comp_guess_row] == "O":
-            print("Computer Missed")
+        elif user_board[comp_guess_row][comp_guess_col] == "O":
+            print("Computer Missed \n")
             user_board[comp_guess_row][comp_guess_col] = "-"
             print_display_boards(user_board, computer_display_board)
             guessing = False
@@ -166,17 +164,35 @@ def computer_guess(computer_display_board, user_board):
             guessing = True
 
 
+def game_check(board):
+    count = 0
+    for i in range(BOARD_SIZE):
+        for j in range(BOARD_SIZE):
+            if board[i][j] == "X":
+                count = count + 1
+    return count
+
 def play_game():
     computer_board = create_board()
     user_board = create_board()
     computer_display_board = create_board()
+    print("")
     print("Initial Boards \n")
     print_display_boards(user_board, computer_display_board)
     get_computer_ship(computer_board)
+    print(computer_board)
     get_user_ship(user_board, computer_display_board)
-    user_guess(computer_board, computer_display_board, user_board)
-
-    computer_guess(computer_display_board, user_board)
-
-
+    print("Time to Start Firing")
+    print("Start guessing! \n")
+    while True:
+        user_guess(computer_board, computer_display_board, user_board)
+        check_user_win = game_check(computer_display_board)
+        if check_user_win == 2:
+            print("Congratulations you have sunk all the ships, You Win")
+            break
+        computer_guess(computer_display_board, user_board)
+        check_computer_wins = game_check(user_board)
+        if check_computer_wins == 2:
+            print("The computer has sunk all you ships, computer wins")
+            break
 play_game()
