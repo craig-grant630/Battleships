@@ -5,6 +5,27 @@ DIRECTION = ["N", "S", "E", "W"]
 SHIP_SIZES = [2, 2, 3, 4, 5]
 
 
+def rules():
+    print("Welcome to Battleships\n")
+    print("Rules:\n")
+    print("1. The goal of the game is to sink all of your opponent's ships "
+          "before they sink yours.")
+    print("2. You are playing against the computer, and there will be two "
+          "10x10 game boards.")
+    print("3. There are five ships of varying sizes: two 2-length ships, "
+          "one 3-length ship, one 4-length ship, and one 5-length ship.")
+    print("4. Ships can be placed either vertically (N or S) or horizontally "
+          "(E or W).")
+    print("5. Players take turns guessing the coordinates of their opponent's "
+          "ships.")
+    print("6. When making a guess, if the coordinates correspond to a ship, "
+          "it's considered a 'hit' (marked with 'X').")
+    print("7. If the guess does not hit a ship, it's considered a 'miss' "
+          "(marked with '-').")
+    print("8. The game continues until one player has sunk all of their "
+          "opponent's ships.\n")
+
+
 def create_board():
     # create a list of
     # list with a borard size of 10
@@ -55,7 +76,7 @@ def get_user_ship(user_board, board):
                 user_row = int(input(
                     f"Enter row for ship length {ship_size}: \n"))
                 user_column = int(input(
-                    f"Enter column for ship length {ship_size}: "))
+                    f"Enter column for ship length {ship_size}: \n"))
                 user_dir = input("Enter your direction (N,S,E,W): \n").upper()
                 print("")
                 if user_dir in DIRECTION:
@@ -183,11 +204,12 @@ def game_check(board):
 
 def play_game():
     # This is the main loop for the game
+    rules()
     computer_board = create_board()
     user_board = create_board()
     computer_display_board = create_board()
     print("")
-    print("Initial Boards \n")
+    print("Lets Start! \n")
     print_display_boards(user_board, computer_display_board)
     get_computer_ship(computer_board)
     get_user_ship(user_board, computer_display_board)
