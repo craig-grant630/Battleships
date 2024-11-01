@@ -85,13 +85,13 @@ def validate_ship(direction, row, column, ship_size, board):
             if board[row - y][column] == "S":
                 return False
     elif direction == "S":
-        if row + ship_size > BOARD_SIZE:
+        if row + ship_size > BOARD_SIZE - 1:
             return False
         for y in range(ship_size):
             if board[row + y][column] == "S":
                 return False
     elif direction == "E":
-        if column + ship_size > BOARD_SIZE:
+        if column + ship_size > BOARD_SIZE - 1:
             return False
         for x in range(ship_size):
             if board[row][column + x] == "S":
@@ -130,7 +130,9 @@ def user_guess(computer_board, computer_display_board, user_board):
         try:
             u_guess_row = int(input("Guess a row: "))
             u_guess_col = int(input("Guess a column: "))
-            if computer_display_board[u_guess_row][u_guess_col] != "O":
+            if u_guess_col < 0 or u_guess_col > 9 or u_guess_row < 0 or u_guess_row > 9:
+                print("Invalid guess")
+            elif computer_display_board[u_guess_row][u_guess_col] != "O":
                 print("You have already guessed this, try again")
             elif computer_board[u_guess_row][u_guess_col] == "S":
                 print("You Hit")
@@ -148,8 +150,8 @@ def computer_guess(computer_display_board, user_board):
     print("Computers Turn")
     guessing = True
     while guessing:
-        comp_guess_row = random.randint(0, BOARD_SIZE)
-        comp_guess_col = random.randint(0, BOARD_SIZE)
+        comp_guess_row = random.randint(0, BOARD_SIZE - 1)
+        comp_guess_col = random.randint(0, BOARD_SIZE - 1)
         if user_board[comp_guess_row][comp_guess_col] == "S":
             print("Computer Hit")
             user_board[comp_guess_row][comp_guess_col] = "X"
@@ -173,6 +175,7 @@ def play_game():
     get_computer_ship(computer_board)
     get_user_ship(user_board, computer_display_board)
     user_guess(computer_board, computer_display_board, user_board)
+
     computer_guess(computer_display_board, user_board)
 
 
