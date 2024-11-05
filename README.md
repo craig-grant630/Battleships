@@ -116,4 +116,27 @@ When user would input an incorrect row or column when placing their ships the ga
 
 **CI Python Linter**
 
-![Validator Test](README-images/)
+![Validator Test](README-images/validator-test.webp)
+
+## Deployment
+
+The project was deployed using Code Institute's mock terminal for Heroku.
+
+**Manual Deployment**
+
+- Create a new Heroku app.
+- Set the buildpacks to **Python** and **NodeJS**, in that order.
+- Link the Heroku app to the repository.
+- Click on Deploy.
+
+ **Forking Repository**
+ 
+- Go to the GitHub repository.
+- Select **"Fork"** button on the page.
+- This will create a copy of the repository in your GitHub account.
+
+**Clone Repository**
+
+- Go to the GitHub Repository.
+- Click the Code button and copy the link.
+- In Gitpod, type "git clone **repository link copied**.git" and enter.
