@@ -106,8 +106,14 @@ Battleships game provides clear instructions and a straightforward interface. Pl
 
 ### Bugs
 
-- When user would input an incorrect row or column when placing their ships the game would output and "invalid" message to the user, it would then move onto the next ship placement rather than looping through and placing the ship that was invalid.
+When user would input an incorrect row or column when placing their ships the game would output and "invalid" message to the user, it would then move onto the next ship placement rather than looping through and placing the ship that was invalid.
 
 **Correction**
 
-  <img src="" alt="Looping Error Correction"/> 
+  <img src="README-images/looping-error-ship.webp" alt="Looping Error Correction"/> 
+
+ ### Validator Testing 
+
+**CI Python Linter**
+
+![Validator Test](README-images/)
