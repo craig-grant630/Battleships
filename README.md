@@ -75,3 +75,32 @@ Battleships game provides clear instructions and a straightforward interface. Pl
 - Place ships as prompted by the game.
 - Enter valid and invalid coordinates and directions to check input validation.
 - Ensure ships are placed correctly on the board and displayed properly
+- Test with edge cases such as placing ships at the board's boundaries.
+- Enter out-of-range coordinates to check input validation.
+- Attempt to place overlapping ships to ensure the game prevents this.
+
+**Testing Scenarios**
+
+- Place a ship starting at (0,0) heading North with a size of 2 (fail).
+- Place a ship starting at (0,0) heading East with a size of 2 (succeed).
+- Place a ship starting at (0,9) heading East with a size of 2 (fail)
+- Place a ship starting at (0,9) heading West with a size of 2 (succeed)
+
+**Gameplay Loop**
+
+**1. User Guessing:**
+- Enter valid and invalid guesses (row and column).
+- Ensure invalid guesses are handled gracefully with appropriate error messages.
+- Confirm that hits are marked with 'X' and misses with '-'.
+
+**2. Computer Guessing:**
+- Observe the computer's guessing logic.
+- Ensure that the computer correctly identifies hits and misses.
+- Verify that the user's board is updated accordingly.
+
+**Win Condition**
+
+- Play until all ships of one player are sunk.
+- Verify that the game announces the correct winner.
+- Ensure that the game terminates correctly after a win condition is met.
+
