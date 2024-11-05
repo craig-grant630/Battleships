@@ -45,11 +45,11 @@ Battleships game provides clear instructions and a straightforward interface. Pl
 
 ### Game Rules Screen
 
-<img src="README-images/battleships-rules.webp" alt="desktop image"/> 
+<img src="README-images/battleships-rules.webp" alt="Rules Screen"/> 
 
 ### Game Screen
 
-<img src="README-images/game-display.webp" alt="desktop image"/> 
+<img src="README-images/game-display.webp" alt="Game Screen"/> 
 
 ## Testing
 ### Manual Testing 
@@ -104,3 +104,10 @@ Battleships game provides clear instructions and a straightforward interface. Pl
 - Verify that the game announces the correct winner.
 - Ensure that the game terminates correctly after a win condition is met.
 
+### Bugs
+
+- When user would input an incorrect row or column when placing their ships the game would output and "invalid" message to the user, it would then move onto the next ship placement rather than looping through and placing the ship that was invalid.
+
+**Correction**
+
+  <img src="" alt="Looping Error Correction"/> 
