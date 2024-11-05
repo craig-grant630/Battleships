@@ -39,3 +39,16 @@ Battleship, which originated as a pencil-and-paper game, has its roots in World 
 - Casual Gamers: Fun and easy-to-understand gameplay, quick to start, and minimal setup.
 - Players of all ages: Battleships is a game of strategy, memory, and logic, making it a timeless classic enjoyed by players of all ages.
 
+## Features
+
+Battleships game provides clear instructions and a straightforward interface. Players are welcomed with a set of easy-to-understand rules before starting the game. The game screen has dual-board display, where the user's board and the computer's board are shown side by side, making it easy to track progress. Placing ships is interactive and guided, ensuring that users understand how to position their fleet strategically. During gameplay, users make guesses by inputting row and column coordinates, receiving immediate feedback on their hits and misses. The alternating turns between the user and the computer keep the gameplay dynamic and exciting. Each turn is accompanied by clear prompts and visual updates, ensuring that players are always aware of the game state.
+
+### Game Rules Screen
+
+<img src="README-images/battleships-rules.webp" alt="desktop image"/> 
+
+### Game Screen
+
+<img src="README-images/game-display.webp" alt="desktop image"/> 
+
+## Testing
