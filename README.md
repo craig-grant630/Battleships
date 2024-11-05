@@ -52,3 +52,26 @@ Battleships game provides clear instructions and a straightforward interface. Pl
 <img src="README-images/game-display.webp" alt="desktop image"/> 
 
 ## Testing
+### Manual Testing 
+
+**Initial Setup and Rules Display**
+
+- Launch the game and verify that the rules are displayed correctly.
+- Check for any typos or formatting issues in the rules.
+
+**Board Creation**
+
+- Ensure that both the user's and the computer's boards are created as 10x10 grids.
+- Confirm that all cells are initially marked with 'O' to represent empty spaces.
+
+**Ship Placement**
+
+**1. Computer Ship Placement:**
+- Start the game and observe the computer placing its ships.
+- Ensure that ships are placed within the board boundaries.
+- Verify that ships do not overlap and are placed in valid positions with the validate_ships fucnction.
+
+**2. User Ship Placement:**
+- Place ships as prompted by the game.
+- Enter valid and invalid coordinates and directions to check input validation.
+- Ensure ships are placed correctly on the board and displayed properly
