@@ -112,6 +112,14 @@ When user would input an incorrect row or column when placing their ships the ga
 
   <img src="README-images/looping-error-ship.webp" alt="Looping Error Correction"/> 
 
+### Improvements
+
+Refactoring the validate_ships function:
+
+![Validator ship function](README-images/validate-ship-function.webp)
+
+The validate_ships function is verifying if positions are within board limits, calculating the ship's endpoint based on direction and size, and checking for any overlapping ships along the path. Create separate smaller functions for each task, which improves code organization and readability. Integrate these smaller functions back into the main function, ensuring it first validates the initial and final positions of the ship, and then checks if the path is free of overlaps. This step-by-step breakdown and delegation of responsibilities into smaller, focused functions makes the main function cleaner and easier to maintain.
+
  ### Validator Testing 
 
 **CI Python Linter**
