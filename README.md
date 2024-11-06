@@ -114,11 +114,20 @@ When user would input an incorrect row or column when placing their ships the ga
 
 ### Improvements
 
-Refactoring the validate_ships function:
+**Refactoring the validate_ships function:**
 
-![Validator ship function](README-images/validate-ship-function.webp)
+![Validator ship function](README-images/validate-ships-function.webp)
 
-The validate_ships function is verifying if positions are within board limits, calculating the ship's endpoint based on direction and size, and checking for any overlapping ships along the path. Create separate smaller functions for each task, which improves code organization and readability. Integrate these smaller functions back into the main function, ensuring it first validates the initial and final positions of the ship, and then checks if the path is free of overlaps. This step-by-step breakdown and delegation of responsibilities into smaller, focused functions makes the main function cleaner and easier to maintain.
+The validate_ships function is verifying if positions are within board limits, calculating the ship's endpoint based on direction and size, and checking for any overlapping ships along the path. Create separate smaller functions for each task, which improves code organization and readability. Integrate these smaller functions back into the main function, ensuring it first validates the initial and final positions of the ship, and then checks if the path is free of overlaps. This breakdown and delegation of responsibilities into smaller, focused functions makes the main function cleaner and easier to maintain.
+
+**Game Logic**
+
+To enhance the Battleships game we can introduce strategic game logic for the computer's guessing when it hits a ship. This improvement would not only increase the difficulty level but also make victories more rewarding and the game overall more compelling.
+
+To acheive this game logic:
+
+- Track Hits and Direction: Modify the computer_guess function to remember the location of hits and focus on adjacent cells for subsequent guesses.
+
 
  ### Validator Testing 
 
@@ -148,3 +157,9 @@ The project was deployed using Code Institute's mock terminal for Heroku.
 - Go to the GitHub Repository.
 - Click the Code button and copy the link.
 - In Gitpod, type "git clone **repository link copied**.git" and enter.
+
+## Credits
+
+The use of the **map** function was from [Real Python](https://realpython.com/python-map-function/)
+The use of built in function **random** was taken from Code Institute course.
+
