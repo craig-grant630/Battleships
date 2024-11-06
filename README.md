@@ -160,6 +160,6 @@ The project was deployed using Code Institute's mock terminal for Heroku.
 
 ## Credits
 
-The use of the **map** function was from [Real Python](https://realpython.com/python-map-function/)
-The use of built in function **random** was taken from Code Institute course.
+- The use of the **map** function was from [Real Python](https://realpython.com/python-map-function/)
+- The use of built in function **random** was taken from Code Institute course.
 
