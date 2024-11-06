@@ -6,6 +6,8 @@ SHIP_SIZES = [2, 2, 3, 4, 5]
 
 
 def rules():
+    # This function will explain the rules to the user,
+    # and ask if the user is ready to start the game
     print("Welcome to Battleships\n")
     print("Rules:\n")
     print("1. The goal of the game is to sink all of your opponent's ships "
@@ -24,24 +26,26 @@ def rules():
           "(marked with '-').")
     print("8. The game continues until one player has sunk all of their "
           "opponent's ships.\n")
+    ready = input("Are you ready to start? (press any key)")
 
 
 def create_board():
-    # create a list of
-    # list with a borard size of 10
+    # Create a 10x10 grid using lists
     return [["O"]*10 for x in range(BOARD_SIZE)]
 
 
 def print_display_boards(user_board, computer_board):
-    # Print the boards the user will see and update
-    # Titles for boards
+    # This function has parameters user_board and computer_board,
+    # each parameter is s 10x10 grid using the create_board function
+
+    #  Titles for boards
     print(" "*9 + "Users Board" + " "*20 + "Computers Board")
-    # Add speration
+    # Add speration line for readablility
     print("-"*67)
     # Add column labels
     column_label = "  " + ("  ").join(map(str, range(BOARD_SIZE)))
     print(column_label + " "*6 + column_label)
-    # Iterate through each row and join the list with spaces
+    # Iterate through each row and join the list with spaces instead of ","
     for i in range(BOARD_SIZE):
         user_board_row = str(i) + " " + ("  ").join(user_board[i])
         computer_board_row = str(i) + " " + ("  ").join(computer_board[i])
@@ -50,9 +54,15 @@ def print_display_boards(user_board, computer_board):
 
 
 def get_computer_ship(board):
-    # Get a randomly placed staring point and direction
-    # check to see if it will fit on the board
-    # place ship on the board
+    # This function will have a parameter for a board,
+    # specifically the computers board that is hidden, and place the computers
+    # ships
+
+    # It will first get a randomly placed staring point (row and column),
+    # then randomly choose a direction from imported random,
+
+    # The function will loop through each ship size
+    # and will place the ship on the board until a valid ship placement.
 
     print("Computer is placing ships... \n")
     for ship_size in SHIP_SIZES:
@@ -61,44 +71,69 @@ def get_computer_ship(board):
             comp_row = random.randint(0, BOARD_SIZE - 1)
             comp_col = random.randint(0, BOARD_SIZE - 1)
             comp_dir = random.choice(DIRECTION)
+            # Validate ship function will either return true or false depending
+            # on if the ship will fit on the board and there is no overlapping
+            # ships already on the board
             if validate_ship(comp_dir, comp_row, comp_col, ship_size, board):
                 place(comp_row, comp_col, comp_dir, ship_size, board)
                 placed = True
 
 
 def get_user_ship(user_board, board):
-    # intake the display boards and update the users board when
+    # This function will use parameters user_board and board,
+    # each a 10x10 grid defined with the create board function
+
+    # The function will loop through the different ship sizes asking,
+    # the user to input a row, column and direction.
+
+    # The function will keep asking the user until valid inputs or ships are,
+    # able to be placed
     print("Time to place your ships! \n")
     for ship_size in SHIP_SIZES:
         placed = False
         while not placed:
             try:
+                # Ask the users to input the row column and direction
                 user_row = int(input(
-                    f"Enter row for ship length {ship_size}: \n"))
+                    f"Enter row (0-9) for ship length {ship_size}: \n"))
                 user_column = int(input(
-                    f"Enter column for ship length {ship_size}: \n"))
+                    f"Enter column (0-9) for ship length {ship_size}: \n"))
                 user_dir = input("Enter your direction (N,S,E,W): \n").upper()
                 print("")
                 if user_dir in DIRECTION:
+                    # Make sure the ship can be placed and is valid
                     if validate_ship(
                                     user_dir, user_row, user_column,
                                     ship_size, user_board):
+                        # If the ship is valid and returns true
+                        # place the ship
                         place(
                             user_row, user_column,
                             user_dir, ship_size, user_board)
                         print_display_boards(user_board, board)
                         placed = True
                     else:
-                        print("Placement Invalid \n")
+                        print("Oh no! Your placement is incorrect \n")
                 else:
-                    print("Invalid Direction \n")
+                    print("Please enter a valid direction: (N,S,E,W) \n")
             except ValueError:
                 print("Invalid Input! \n")
                 placed = False
 
 
 def validate_ship(direction, row, column, ship_size, board):
-    # Make sure the ship is placed in the boundaries of the board
+    # This function will take parameters direction, row, column,
+    # ship_size and board. The ship_size are the size of the ships defined in,
+    # SHIP_SIZES
+
+    # Make sure the row and column are within the bounds of the board,
+    # also ensuring depending on direction and the shize of the ship,
+    # it is also within bounds.
+
+    # The loop in each if statement will ensure there are no overlapping ships.
+
+    # If the ship can be placed with these conditions then return true,
+    # or if not return false.
     if row < 0 or row > 9 or column < 0 or column > 9:
         return False
     elif direction == "N":
@@ -129,8 +164,10 @@ def validate_ship(direction, row, column, ship_size, board):
 
 
 def place(row, column, direction, ship_size, board):
-    # Place ships on the board according to ship
-    # size and direction and starting point
+    # Place ships on the board according to starting row, column
+    # size and direction and place the ship on the specified board,
+    # depending on if the computer is placing or the user.
+
     if direction == "N":
         for i in range(ship_size):
             board[row - i][column] = "S"
@@ -146,23 +183,26 @@ def place(row, column, direction, ship_size, board):
 
 
 def user_guess(computer_board, computer_display_board, user_board):
-    # this will take in users input to update the the boards
+    # This function will take all the boards of 10x10 and determing if,
+    # there is a hit or a miss and update the board accordingly.
+
+    # Loop until we have a valid input
     guessing = True
     while guessing:
         try:
-            u_guess_row = int(input("Guess a row: \n"))
-            u_guess_col = int(input("Guess a column: \n"))
+            u_guess_row = int(input("Guess a row (0-9): \n"))
+            u_guess_col = int(input("Guess a column (0-9): \n"))
             if (u_guess_col < 0 or u_guess_col > 9 or u_guess_row < 0 or
                     u_guess_row > 9):
-                print("Invalid guess \n")
+                print("Your guess is not within the board, try again \n")
             elif computer_display_board[u_guess_row][u_guess_col] != "O":
                 print("You have already guessed this, try again")
             elif computer_board[u_guess_row][u_guess_col] == "S":
-                print("You Hit \n")
+                print("You have Hit \n")
                 computer_display_board[u_guess_row][u_guess_col] = "X"
                 guessing = False
             elif computer_board[u_guess_row][u_guess_col] == "O":
-                print("You Missed \n")
+                print("You have Missed \n")
                 computer_display_board[u_guess_row][u_guess_col] = "-"
                 guessing = False
         except ValueError:
@@ -170,20 +210,22 @@ def user_guess(computer_board, computer_display_board, user_board):
 
 
 def computer_guess(computer_display_board, user_board):
-    # this will create a guess with random numbers
-    # It will update the board with either a hit or a miss
+    # This will have parameters of both the display boards printed to the user,
+    # It will generate a random point on the board and determine,
+    # a hit or a miss making sure there are no duplicate answers.
+
     print("Computers Turn")
     guessing = True
     while guessing:
         comp_guess_row = random.randint(0, BOARD_SIZE - 1)
         comp_guess_col = random.randint(0, BOARD_SIZE - 1)
         if user_board[comp_guess_row][comp_guess_col] == "S":
-            print("Computer Hit \n")
+            print("Computer has Hit \n")
             user_board[comp_guess_row][comp_guess_col] = "X"
             print_display_boards(user_board, computer_display_board)
             guessing = False
         elif user_board[comp_guess_row][comp_guess_col] == "O":
-            print("Computer Missed \n")
+            print("Computer has Missed \n")
             user_board[comp_guess_row][comp_guess_col] = "-"
             print_display_boards(user_board, computer_display_board)
             guessing = False
@@ -205,18 +247,27 @@ def game_check(board):
 
 def play_game():
     # This is the main loop for the game
+
+    # Display the rules for the game
     rules()
+    # Create the different 10x10 lists
     computer_board = create_board()
     user_board = create_board()
     computer_display_board = create_board()
     print("")
     print("Lets Start! \n")
+    # Print the boards the user will need to play the game
     print_display_boards(user_board, computer_display_board)
+    # Place the computer ships on the hidden computer board
     get_computer_ship(computer_board)
+    # Place the users ships on the users board
     get_user_ship(user_board, computer_display_board)
     print("Time to Start Firing")
     print("Start guessing! \n")
+    # Keep track of the amount of turns stating at 1
     turn = 1
+    # Loop that will make sure the user and the computer are guessing until
+    # check user win or check computer win is satisfied
     while True:
         print(f"Turn: {turn}")
         user_guess(computer_board, computer_display_board, user_board)
